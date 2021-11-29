@@ -27,6 +27,9 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import com.example.android.dessertclicker.databinding.ActivityMainBinding
 
+const val KEY_REVENUE = "revenue_key"
+const val KEY_DESERT_SOLD = "desert_sold_key"
+
 class MainActivity : AppCompatActivity() {
     private val TAG = this::class.simpleName
 
@@ -67,6 +70,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        if (savedInstanceState != null) {
+            revenue = savedInstanceState.getInt(KEY_REVENUE, 0)
+            dessertsSold = savedInstanceState.getInt(KEY_DESERT_SOLD, 0)
+
+            //restore the cupcake image
+            showCurrentDessert()
+        }
 
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
@@ -175,6 +186,13 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         Log.d(TAG, "onRestart Called")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt(KEY_DESERT_SOLD, dessertsSold)
+        Log.d(TAG, "onSavedInstanceState Called")
     }
 
 }
