@@ -196,3 +196,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+//if the activity is being recreated, the onRestoreInstanceState() callback is called after onStart(), also with the bundle. Most of the time,
+//restore the state in the onCreate(). But because onRestoreInstanceState() is called after onStart(), if you ever need to restore
+//some state after onCreate is called, you can use the onRestoreInstanceState().
